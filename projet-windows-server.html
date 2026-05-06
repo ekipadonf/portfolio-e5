@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <script>try{var _t=localStorage.getItem("theme"),_pd=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(_t==="dark"||(_t===null&&_pd))document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -234,6 +235,63 @@
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
 
+    /* ---- Nav end & Theme toggle ---- */
+    .nav-end { display: flex; align-items: center; gap: 0.5rem; }
+    .theme-toggle {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; padding: 0;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.25s cubic-bezier(0.2,0,0.2,1);
+    }
+    .theme-toggle:hover { transform: rotate(14deg) scale(1.1); background: rgba(0,0,0,0.05); }
+    .theme-toggle svg {
+      width: 15px; height: 15px; display: block;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      pointer-events: none;
+    }
+    @keyframes toggle-spin {
+      from { transform: rotate(0deg) scale(1.15); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .theme-toggle.rotating { animation: toggle-spin 0.42s cubic-bezier(0.2,0,0.2,1); }
+
+    /* ---- Transition de thème ---- */
+    .theme-transitioning, .theme-transitioning * {
+      transition:
+        background-color 0.35s cubic-bezier(0.2,0,0.2,1),
+        border-color     0.35s cubic-bezier(0.2,0,0.2,1),
+        color            0.35s cubic-bezier(0.2,0,0.2,1) !important;
+    }
+
+    /* ---- Dark mode ---- */
+    [data-theme="dark"] {
+      --bg: #0c0c0f;
+      --surface: #18181d;
+      --text: #f0f0f2;
+      --text-muted: #8e8e96;
+      --border: rgba(255,255,255,0.09);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+      --shadow-md: 0 2px 6px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.55);
+    }
+    [data-theme="dark"] .site-header {
+      background: rgba(12,12,15,0.88);
+      border-bottom-color: rgba(255,255,255,0.05);
+    }
+    [data-theme="dark"] .back-link { background: var(--surface); border-color: var(--border); }
+    [data-theme="dark"] .theme-toggle:hover { background: rgba(255,255,255,0.1); }
+    [data-theme="dark"] .bg-canvas .blob { opacity: 0.28; }
+    [data-theme="dark"] .section             { background: var(--surface); }
+    [data-theme="dark"] .section.sky         { background: linear-gradient(135deg, #0a1e38 0%, #061424 100%); }
+    [data-theme="dark"] .section.mint        { background: linear-gradient(135deg, #0d2e1c 0%, #071e11 100%); }
+    [data-theme="dark"] .section.peach       { background: linear-gradient(135deg, #2e180a 0%, #1e0f06 100%); }
+    [data-theme="dark"] .section.lavender    { background: linear-gradient(135deg, #1c1240 0%, #110b28 100%); }
+    [data-theme="dark"] .screenshot-card     { background: var(--surface); }
+    [data-theme="dark"] .screenshot-caption  { border-top-color: var(--border); }
+    [data-theme="dark"] .tag { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1); }
+
     /* ---- Responsive ---- */
     @media (max-width: 680px) {
       main { padding: 2rem 1rem 4rem; }
@@ -253,6 +311,11 @@
     <nav class="nav">
       <a class="back-link" href="index.html">Retour au portfolio</a>
       <a class="nav-brand" href="index.html">Mathis Lemarié<span>.</span></a>
+      <div class="nav-end">
+        <button class="theme-toggle" id="themeToggle" aria-label="Passer en mode sombre">
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -427,6 +490,7 @@
   </div>
 
   <script>
+    // ---- Lightbox ----
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
 
@@ -442,6 +506,34 @@
 
     document.addEventListener("keydown", e => {
       if (e.key === "Escape") lightbox.classList.remove("open");
+    });
+
+    // ---- Theme toggle ----
+    const themeToggle = document.getElementById("themeToggle");
+    const html = document.documentElement;
+
+    const SVG_MOON = `<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    const SVG_SUN  = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+
+    function syncIcon() {
+      const dark = html.getAttribute("data-theme") === "dark";
+      themeToggle.innerHTML = dark ? SVG_SUN : SVG_MOON;
+      themeToggle.setAttribute("aria-label", dark ? "Passer en mode clair" : "Passer en mode sombre");
+    }
+
+    syncIcon();
+
+    themeToggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.classList.add("theme-transitioning");
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      syncIcon();
+      themeToggle.classList.add("rotating");
+      setTimeout(() => {
+        html.classList.remove("theme-transitioning");
+        themeToggle.classList.remove("rotating");
+      }, 420);
     });
   </script>
 </body>
