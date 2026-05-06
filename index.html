@@ -1452,90 +1452,109 @@
         </div>
 
         <div class="bento">
+
+          <!-- Tuile principale -->
           <div class="bento-item col-12 dark">
-            <p class="tile-label">Méthodologie</p>
-            <h3 style="font-size: 1.5rem;">5 étapes : collecter · filtrer · analyser · synthétiser · diffuser</h3>
+            <p class="tile-label">Sujet de veille · 2025</p>
+            <h3 style="font-size: 1.6rem; color: var(--text-on-dark);">Fin du support Windows 10 &amp; migration vers Windows 11</h3>
             <p>
-              Ma veille me permet de rester à jour sur les évolutions techniques,
-              les vulnérabilités et les bonnes pratiques du domaine SISR.
+              Le <strong>14 octobre 2025</strong>, Microsoft a mis fin au support étendu de Windows 10. Plus aucun patch de sécurité n'est publié, exposant les machines non migrées à des vulnérabilités critiques. Pour les entreprises gérant un grand parc informatique, cette échéance représente un enjeu majeur.
+            </p>
+            <ul class="tag-list" style="margin-top: 0.75rem;">
+              <li class="tag">Windows 10 EOS</li>
+              <li class="tag">Windows 11</li>
+              <li class="tag">Cybersécurité</li>
+              <li class="tag">Gestion de parc</li>
+              <li class="tag">Migration</li>
+            </ul>
+          </div>
+
+          <!-- Contexte -->
+          <div class="bento-item col-6 peach">
+            <p class="tile-label">Contexte</p>
+            <h3>Pourquoi c'est critique ?</h3>
+            <p>
+              Windows 10 représentait encore <strong>plus de 60 % des postes Windows</strong> en entreprise à l'approche de la date butoir. Une fois le support terminé, Microsoft ne corrige plus les failles découvertes : chaque nouvelle CVE publiée devient une porte d'entrée potentielle pour les attaquants, sans remède officiel.
+            </p>
+            <p>
+              En entreprise, un seul poste non mis à jour peut suffire à compromettre tout le réseau via un ransomware ou un mouvement latéral.
             </p>
           </div>
 
-          <div class="bento-item col-6 peach">
-            <p class="tile-label">Thème 01</p>
-            <h3>[Cybersécurité &amp; vulnérabilités]</h3>
-            <p>[Pourquoi ce thème, en quoi il est utile pour ton métier.]</p>
-          </div>
-
+          <!-- Exigences Windows 11 -->
           <div class="bento-item col-6 sky">
-            <p class="tile-label">Thème 02</p>
-            <h3>[Évolution des réseaux]</h3>
-            <p>[Description du sujet et angle d'étude.]</p>
+            <p class="tile-label">Obstacles techniques</p>
+            <h3>Les prérequis de Windows 11</h3>
+            <p>
+              Windows 11 impose des exigences matérielles strictes absentes sur beaucoup de postes existants :
+            </p>
+            <ul style="margin-top: 0.5rem;">
+              <li><strong>TPM 2.0</strong> — puce de sécurité requise, absente sur les machines avant 2017 environ</li>
+              <li><strong>Secure Boot</strong> — doit être activé dans le BIOS/UEFI</li>
+              <li><strong>Processeur compatible</strong> — Intel 8e génération ou Ryzen 2000 minimum</li>
+              <li><strong>4 Go RAM / 64 Go stockage</strong> — minimum officiels</li>
+            </ul>
+            <p style="margin-top: 0.65rem;">
+              Dans les grandes entreprises, une part non négligeable du parc peut être <strong>matériellement incompatible</strong>, forçant un renouvellement coûteux.
+            </p>
           </div>
 
+          <!-- Impact en entreprise -->
+          <div class="bento-item col-7">
+            <p class="tile-label">Impact en milieu professionnel</p>
+            <h3>Ce que ça change pour les techniciens</h3>
+            <p>
+              Chez SIPCO, la fin du support Windows 10 a concrètement impacté le quotidien : les clients sont informés du risque, et la migration devient une mission récurrente. Plusieurs actions sont nécessaires :
+            </p>
+            <ul style="margin-top: 0.5rem;">
+              <li><strong>Inventaire du parc</strong> — identifier les postes sous Windows 10 via l'outil de supervision (Datto RMM)</li>
+              <li><strong>Test de compatibilité</strong> — vérifier TPM, Secure Boot et CPU poste par poste</li>
+              <li><strong>Planification des mises à niveau</strong> — upgrade in-place pour les machines compatibles</li>
+              <li><strong>Renouvellement matériel</strong> — remplacement des postes trop anciens</li>
+              <li><strong>Formation des utilisateurs</strong> — prise en main de la nouvelle interface Windows 11</li>
+            </ul>
+          </div>
+
+          <!-- Options pour les postes incompatibles -->
+          <div class="bento-item col-5 mint">
+            <p class="tile-label">Alternatives &amp; solutions</p>
+            <h3>Que faire pour les postes incompatibles ?</h3>
+            <ul style="margin-top: 0.5rem;">
+              <li><strong>ESU (Extended Security Updates)</strong> — Microsoft propose une année supplémentaire de correctifs payante pour les entreprises qui ne peuvent pas migrer immédiatement</li>
+              <li><strong>Bypass TPM</strong> — contournement non officiel via registre, déconseillé en production</li>
+              <li><strong>Remplacement du parc</strong> — solution pérenne mais coûteuse, à planifier sur plusieurs années</li>
+              <li><strong>Isolation réseau</strong> — segmenter les postes non migrables en VLAN pour limiter l'exposition</li>
+            </ul>
+          </div>
+
+          <!-- Sources -->
           <div class="bento-item col-6">
-            <p class="tile-label">Sources — Flux RSS</p>
+            <p class="tile-label">Sources utilisées</p>
             <ul style="margin-top: 0.6rem;">
-              <li><a href="https://www.cert.ssi.gouv.fr/" target="_blank" rel="noopener">CERT-FR</a> — alertes &amp; avis de sécurité</li>
-              <li><a href="https://www.zataz.com/" target="_blank" rel="noopener">Zataz</a> — actualité cybersécurité</li>
-              <li>[source à compléter]</li>
+              <li><a href="https://learn.microsoft.com/fr-fr/windows/whats-new/windows-11-requirements" target="_blank" rel="noopener">Microsoft Learn</a> — prérequis officiels Windows 11</li>
+              <li><a href="https://www.cert.ssi.gouv.fr/" target="_blank" rel="noopener">CERT-FR</a> — alertes &amp; bulletins de sécurité Microsoft</li>
+              <li><a href="https://www.lemondeinformatique.fr/" target="_blank" rel="noopener">Le Monde Informatique</a> — actualité migration parc</li>
+              <li><a href="https://www.nextinpact.com/" target="_blank" rel="noopener">Next (ex-Next INpact)</a> — analyses techniques</li>
+              <li><a href="https://www.zataz.com/" target="_blank" rel="noopener">Zataz</a> — vulnérabilités &amp; cyberattaques</li>
             </ul>
           </div>
 
-          <div class="bento-item col-6">
-            <p class="tile-label">Sources — Web</p>
-            <ul style="margin-top: 0.6rem;">
-              <li><a href="https://www.lemondeinformatique.fr/" target="_blank" rel="noopener">Le Monde Informatique</a></li>
-              <li><a href="https://www.nextinpact.com/" target="_blank" rel="noopener">Next</a></li>
-              <li>[site à compléter]</li>
+          <!-- Synthèse -->
+          <div class="bento-item col-6 lavender">
+            <p class="tile-label">Synthèse · Octobre 2025</p>
+            <h3>Ce qu'il faut retenir</h3>
+            <p>
+              La fin du support Windows 10 n'est pas un simple changement de version : c'est une <strong>rupture de la chaîne de sécurité</strong>. Chaque jour supplémentaire passé sous Windows 10 sans correctifs augmente la surface d'attaque.
+            </p>
+            <p>
+              Pour un prestataire informatique comme SIPCO, cela se traduit par une vague de demandes de migration à gérer en priorité, en commençant par les postes exposés sur Internet ou connectés à des données sensibles.
+            </p>
+            <ul class="tag-list" style="margin-top: 0.5rem;">
+              <li class="tag">EOS 14/10/2025</li>
+              <li class="tag">CVE sans patch</li>
+              <li class="tag">TPM 2.0</li>
+              <li class="tag">Upgrade in-place</li>
             </ul>
-          </div>
-
-          <div class="bento-item col-6 yellow">
-            <p class="tile-label">Outils d'agrégation</p>
-            <ul style="margin-top: 0.6rem;">
-              <li>Google Alerts (mots-clés : <code>zero-day</code>, <code>ransomware</code>…)</li>
-              <li>Feedly (agrégateur de flux RSS)</li>
-              <li>[outil à compléter]</li>
-            </ul>
-          </div>
-
-          <div class="bento-item col-6">
-            <p class="tile-label">Communautés</p>
-            <ul style="margin-top: 0.6rem;">
-              <li>LinkedIn — comptes spécialisés cybersécurité / réseaux</li>
-              <li>YouTube — chaînes techniques</li>
-              <li>[à compléter]</li>
-            </ul>
-          </div>
-
-          <div class="bento-item col-12">
-            <p class="tile-label">Synthèses</p>
-            <h3>Mes synthèses régulières</h3>
-          </div>
-
-          <div class="bento-item col-4 lavender">
-            <p class="tile-label">Synthèse 01 · [Date]</p>
-            <h3>[Titre de la synthèse 1]</h3>
-            <p>[Résumé : faille / nouveauté / évolution. Sources, impact, bonnes pratiques.]</p>
-            <ul class="tag-list">
-              <li class="tag">[Mot-clé 1]</li>
-              <li class="tag">[Mot-clé 2]</li>
-            </ul>
-          </div>
-
-          <div class="bento-item col-4 mint">
-            <p class="tile-label">Synthèse 02 · [Date]</p>
-            <h3>[Titre de la synthèse 2]</h3>
-            <p>[À compléter]</p>
-            <ul class="tag-list"><li class="tag">[Mot-clé]</li></ul>
-          </div>
-
-          <div class="bento-item col-4 pink">
-            <p class="tile-label">Synthèse 03 · [Date]</p>
-            <h3>[Titre de la synthèse 3]</h3>
-            <p>[À compléter]</p>
-            <ul class="tag-list"><li class="tag">[Mot-clé]</li></ul>
           </div>
 
         </div>
