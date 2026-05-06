@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projet — Infogérance Datto RMM · Mathis Lemarié</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-dark: #1d1d1f;
+      --text: #1d1d1f;
+      --text-on-dark: #f5f5f7;
+      --text-muted: #6e6e73;
+      --border: #e5e5e7;
+      --accent: #0066ff;
+      --radius: 22px;
+      --radius-sm: 14px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+      --max-width: 960px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15.5px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.005em;
+    }
+
+    /* ---- Fond blobs ---- */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      overflow: hidden; pointer-events: none;
+    }
+    .bg-canvas .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: 0.5;
+    }
+    .blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, #7eb8fb 0%, transparent 65%); top: -160px; left: -100px; animation: drift-1 30s ease-in-out infinite; }
+    .blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, #a3dcb6 0%, transparent 65%); bottom: 10%; right: -100px; animation: drift-2 36s ease-in-out infinite; }
+    @keyframes drift-1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(100px,80px) scale(1.1)} }
+    @keyframes drift-2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-80px,-60px) scale(0.95)} }
+
+    /* ---- Header ---- */
+    .site-header {
+      background: rgba(245,245,247,0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: sticky; top: 0; z-index: 100;
+      position: relative; z-index: 1;
+    }
+    .nav {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.5rem; max-width: var(--max-width); margin: 0 auto;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.88rem; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; padding: 0.4rem 0.85rem;
+      border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); transition: color 0.2s, box-shadow 0.2s;
+    }
+    .back-link:hover { color: var(--text); box-shadow: var(--shadow-sm); }
+    .back-link::before { content: "←"; font-size: 1em; }
+
+    .nav-brand { font-weight: 700; font-size: 0.95rem; color: var(--text); text-decoration: none; margin-left: auto; letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--accent); }
+
+    /* ---- Layout ---- */
+    main { position: relative; z-index: 1; padding: 3rem 1.5rem 5rem; max-width: var(--max-width); margin: 0 auto; }
+
+    /* ---- Hero du projet ---- */
+    .project-hero {
+      background: linear-gradient(135deg, #1d1d1f 0%, #0a0a0c 100%);
+      border-radius: var(--radius);
+      padding: 2.5rem 2.5rem 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-hero::before {
+      content: "";
+      position: absolute; border-radius: 50%;
+      filter: blur(70px); z-index: 0; pointer-events: none;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, #0066ff 0%, transparent 70%);
+      top: -140px; right: -80px; opacity: 0.5;
+      animation: float-blob 18s ease-in-out infinite;
+    }
+    @keyframes float-blob { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-25px) scale(1.07)} 66%{transform:translate(-20px,20px) scale(0.94)} }
+    .project-hero > * { position: relative; z-index: 1; }
+
+    .project-hero .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.8rem; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.75rem; font-weight: 500; color: rgba(245,245,247,0.7);
+      margin-bottom: 1rem;
+    }
+    .project-hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800;
+      color: #f5f5f7; letter-spacing: -0.04em; line-height: 1.05;
+      margin-bottom: 0.85rem;
+    }
+    .project-hero h1 span {
+      background: linear-gradient(90deg, #4d8eff 0%, #8b5cf6 50%, #4d8eff 100%);
+      background-size: 200% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-shift 6s linear infinite;
+    }
+    @keyframes gradient-shift { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+    .project-hero p { color: rgba(245,245,247,0.75); font-size: 1rem; max-width: 55ch; }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem;
+    }
+    .meta-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.85rem; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.78rem; font-weight: 500; color: rgba(245,245,247,0.8);
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .section.sky    { background: linear-gradient(135deg, #dcefff 0%, #b9d8f6 100%); }
+    .section.mint   { background: linear-gradient(135deg, #dff3e7 0%, #b8e6c8 100%); }
+    .section.peach  { background: linear-gradient(135deg, #ffe6d8 0%, #ffcaa6 100%); }
+    .section.dark   { background: linear-gradient(135deg, #1d1d1f 0%, #0a0a0c 100%); color: #f5f5f7; }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .section-label::before {
+      content: ""; display: inline-block; width: 18px; height: 1.5px;
+      background: var(--accent); border-radius: 1px;
+    }
+    .section.dark .section-label { color: #60a5fa; }
+    .section.dark .section-label::before { background: #60a5fa; }
+
+    .section h2 {
+      font-size: 1.35rem; font-weight: 700; letter-spacing: -0.025em;
+      margin-bottom: 1rem; color: var(--text);
+    }
+    .section.dark h2 { color: #f5f5f7; }
+
+    .section p { margin-bottom: 0.85rem; color: var(--text); }
+    .section p:last-child { margin-bottom: 0; }
+    .section.dark p { color: rgba(245,245,247,0.8); }
+
+    ul.styled { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+    ul.styled li {
+      position: relative; padding-left: 1.4rem; margin-bottom: 0.5rem; color: var(--text);
+    }
+    ul.styled li::before {
+      content: ""; position: absolute; left: 0.25rem; top: 0.62em;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 3px rgba(0,102,255,0.12);
+    }
+    .section.dark ul.styled li { color: rgba(245,245,247,0.85); }
+    .section.dark ul.styled li::before { background: #60a5fa; box-shadow: 0 0 0 3px rgba(96,165,250,0.18); }
+    .section.mint ul.styled li::before { background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
+    .section.sky ul.styled li::before  { background: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+    /* ---- Images ---- */
+    .screenshots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .screenshot-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .screenshot-card img {
+      width: 100%; height: auto; display: block;
+      cursor: zoom-in; transition: transform 0.3s ease;
+    }
+    .screenshot-card img:hover { transform: scale(1.015); }
+    .screenshot-caption {
+      padding: 0.85rem 1.1rem;
+      font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .screenshot-caption::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+
+    /* ---- Skills tags ---- */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .tag {
+      padding: 0.38rem 0.85rem; border-radius: 999px;
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.8rem; font-weight: 500; color: var(--text);
+    }
+    .section.dark .tag { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: #f5f5f7; }
+
+    /* ---- Lightbox ---- */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+      cursor: zoom-out; backdrop-filter: blur(6px);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 680px) {
+      main { padding: 2rem 1rem 4rem; }
+      .screenshots { grid-template-columns: 1fr; }
+      .project-hero { padding: 1.75rem 1.5rem 1.5rem; }
+      .section { padding: 1.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="back-link" href="index.html">Retour au portfolio</a>
+      <a class="nav-brand" href="index.html">Mathis Lemarié<span>.</span></a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <div class="project-hero">
+      <span class="badge">Projet 01 · SIPCO · 2025</span>
+      <h1>Infogérance avec<br /><span>Datto RMM</span></h1>
+      <p>
+        Mise en place et gestion du parc informatique de clients professionnels
+        via la plateforme de supervision à distance Datto RMM.
+      </p>
+      <div class="meta-row">
+        <span class="meta-tag">Datto RMM</span>
+        <span class="meta-tag">Infogérance</span>
+        <span class="meta-tag">Supervision</span>
+        <span class="meta-tag">Parc informatique</span>
+        <span class="meta-tag">SIPCO</span>
+      </div>
+    </div>
+
+    <!-- Contexte -->
+    <div class="section">
+      <p class="section-label">Contexte</p>
+      <h2>Qu'est-ce que l'infogérance ?</h2>
+      <p>
+        L'infogérance consiste à confier la gestion et la supervision du parc informatique d'une entreprise à un prestataire externe. Chez SIPCO, cela passe par la plateforme <strong>Datto RMM</strong> (Remote Monitoring and Management), qui permet de surveiller, gérer et maintenir à distance l'ensemble des appareils des clients.
+      </p>
+      <p>
+        Pour chaque client, la première étape est de <strong>recenser tous les appareils informatiques</strong> en leur possession (ordinateurs portables, tours, serveurs…) puis de les enregistrer dans Datto sous le nom de l'entreprise cliente. Une fois les agents déployés sur chaque machine, la supervision devient totalement centralisée.
+      </p>
+    </div>
+
+    <!-- Exemple AJUP -->
+    <div class="section sky">
+      <p class="section-label">Exemple concret</p>
+      <h2>Client AJUP — 83 appareils infogérés</h2>
+      <p>
+        Pour illustrer la mise en place, prenons l'exemple d'<strong>AJUP</strong>, l'un des plus grands clients de SIPCO, avec <strong>83 appareils informatiques</strong> infogérés. Chaque machine est référencée dans Datto avec son nom, son type, son utilisateur et son système d'exploitation.
+      </p>
+      <p>
+        La vue parc ci-dessous permet de voir en un coup d'œil l'ensemble des appareils gérés, leur statut, leur version de Windows et leur niveau de mise à jour.
+      </p>
+    </div>
+
+    <!-- Screenshots -->
+    <div class="screenshots">
+      <div class="screenshot-card">
+        <img src="assets/img/Datto_RMM_Parc_AJUP_anonymise.png" alt="Vue du parc AJUP dans Datto RMM" />
+        <div class="screenshot-caption">Vue parc — liste des 83 appareils d'AJUP</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="assets/img/Datto_RMM_Fiche_AJUP_anonymise.png" alt="Fiche détaillée d'un appareil dans Datto RMM" />
+        <div class="screenshot-caption">Fiche appareil — détail complet d'un poste</div>
+      </div>
+    </div>
+
+    <!-- Comment fonctionne Datto -->
+    <div class="section dark">
+      <p class="section-label">Fonctionnement</p>
+      <h2>Comment fonctionne Datto RMM ?</h2>
+      <p>
+        Datto RMM est une plateforme cloud de supervision à distance. Un <strong>agent logiciel</strong> est installé sur chaque appareil géré. Cet agent remonte en temps réel toutes les informations de la machine vers la console centralisée, accessible depuis n'importe où.
+      </p>
+      <ul class="styled">
+        <li><strong>Inventaire automatique</strong> — marque, modèle, processeur, RAM, stockage, numéro de série, sont collectés automatiquement dès l'installation de l'agent.</li>
+        <li><strong>Supervision en temps réel</strong> — l'état de chaque appareil (en ligne / hors ligne), les alertes matérielles et les niveaux de ressources sont visibles instantanément.</li>
+        <li><strong>Gestion des mises à jour</strong> — Datto indique le statut Windows Update de chaque machine et permet de déployer les mises à jour à distance.</li>
+        <li><strong>Prise en main à distance</strong> — il est possible de se connecter directement sur un appareil sans intervention physique pour résoudre un problème.</li>
+        <li><strong>Alertes et tickets</strong> — tout incident déclenche automatiquement une alerte qui peut être transformée en ticket d'intervention.</li>
+      </ul>
+    </div>
+
+    <!-- Données visibles dans la fiche -->
+    <div class="section mint">
+      <p class="section-label">Données collectées</p>
+      <h2>Ce que l'on peut lire dans la fiche appareil</h2>
+      <p>
+        La fiche détaillée d'un appareil dans Datto RMM centralise toutes les informations utiles pour le technicien :
+      </p>
+      <ul class="styled">
+        <li><strong>Identification</strong> — nom de l'appareil, utilisateur associé, groupe de sites (nom du client), dernier agent connecté.</li>
+        <li><strong>Système d'exploitation</strong> — version de Windows, architecture, date d'installation, version du noyau.</li>
+        <li><strong>Matériel</strong> — fabricant, modèle exact, processeur, quantité de RAM, capacité et espace disque restant, résolution d'écran.</li>
+        <li><strong>Réseau</strong> — adresse IP locale, adresse MAC, nom de domaine.</li>
+        <li><strong>Sécurité & maintenance</strong> — état de l'antivirus, date de la dernière sauvegarde, statut des mises à jour Windows.</li>
+        <li><strong>Garantie</strong> — date de fin de garantie constructeur récupérée automatiquement depuis le numéro de série.</li>
+      </ul>
+    </div>
+
+    <!-- Compétences -->
+    <div class="section">
+      <p class="section-label">Compétences mobilisées</p>
+      <h2>Ce que ce projet m'a apporté</h2>
+      <p>
+        Ce projet m'a permis de comprendre concrètement comment un prestataire informatique gère un parc de machines en entreprise, en utilisant des outils professionnels de supervision à distance.
+      </p>
+      <div class="tag-row">
+        <span class="tag">Datto RMM</span>
+        <span class="tag">Infogérance</span>
+        <span class="tag">Gestion de parc</span>
+        <span class="tag">Supervision réseau</span>
+        <span class="tag">Windows</span>
+        <span class="tag">Support à distance</span>
+        <span class="tag">Inventaire informatique</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    document.querySelectorAll(".screenshot-card img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("open");
+      });
+    });
+
+    lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") lightbox.classList.remove("open");
+    });
+  </script>
+</body>
+</html>
