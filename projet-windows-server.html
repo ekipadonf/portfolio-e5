@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projet — Infrastructure Windows Server · Mathis Lemarié</title>
+  <meta name="description" content="Déploiement d'une infrastructure Windows Server complète : Active Directory, DHCP, DNS et GPO en virtualisation avec VirtualBox." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Infrastructure Windows Server — Mathis Lemarié" />
+  <meta property="og:description" content="Déploiement d'une infrastructure Windows Server complète : Active Directory, DHCP, DNS et GPO en virtualisation avec VirtualBox." />
+  <meta property="og:url" content="https://ekipadonf.github.io/portfolio-e5/projet-windows-server.html" />
+  <meta property="og:locale" content="fr_FR" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
@@ -235,6 +242,29 @@
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
 
+    /* ---- Barre de progression de lecture ---- */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, #a78bfa 0%, #60a5fa 100%);
+      z-index: 200; pointer-events: none; transition: width 0.08s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ---- Bouton retour en haut ---- */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md); font-family: inherit;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      pointer-events: none;
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #back-to-top:hover { background: #7c3aed; color: #fff; border-color: #7c3aed; transform: translateY(-3px); }
+
     /* ---- Nav end & Theme toggle ---- */
     .nav-end { display: flex; align-items: center; gap: 0.5rem; }
     .theme-toggle {
@@ -302,6 +332,7 @@
   </style>
 </head>
 <body>
+  <div id="progress-bar"></div>
   <div class="bg-canvas" aria-hidden="true">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -369,11 +400,11 @@
     <!-- Screenshots AD -->
     <div class="screenshots">
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_AD_deployment.png" alt="Configuration du déploiement AD DS" />
+        <img loading="lazy" src="assets/img/WinServer_AD_deployment.png" alt="Configuration du déploiement AD DS" />
         <div class="screenshot-caption">Assistant de promotion — configuration du déploiement</div>
       </div>
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_AD_domain.png" alt="Options du domaine Active Directory" />
+        <img loading="lazy" src="assets/img/WinServer_AD_domain.png" alt="Options du domaine Active Directory" />
         <div class="screenshot-caption">Options du contrôleur de domaine — niveau fonctionnel</div>
       </div>
     </div>
@@ -397,11 +428,11 @@
     <!-- Screenshots DHCP -->
     <div class="screenshots">
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_DHCP_console.jpg" alt="Console de gestion DHCP" />
+        <img loading="lazy" src="assets/img/WinServer_DHCP_console.jpg" alt="Console de gestion DHCP" />
         <div class="screenshot-caption">Console DHCP MMC — vue d'ensemble du serveur</div>
       </div>
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_DHCP_scope.jpg" alt="Création d'une étendue DHCP" />
+        <img loading="lazy" src="assets/img/WinServer_DHCP_scope.jpg" alt="Création d'une étendue DHCP" />
         <div class="screenshot-caption">Assistant Nouvelle étendue — plage d'adresses IP</div>
       </div>
     </div>
@@ -425,11 +456,11 @@
     <!-- Screenshots DNS -->
     <div class="screenshots">
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_DNS_manager.png" alt="Gestionnaire DNS Windows Server" />
+        <img loading="lazy" src="assets/img/WinServer_DNS_manager.png" alt="Gestionnaire DNS Windows Server" />
         <div class="screenshot-caption">Gestionnaire DNS — arborescence des zones</div>
       </div>
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_DNS_zone.png" alt="Création d'une zone de recherche directe" />
+        <img loading="lazy" src="assets/img/WinServer_DNS_zone.png" alt="Création d'une zone de recherche directe" />
         <div class="screenshot-caption">Création d'une zone de recherche directe (Forward Lookup Zone)</div>
       </div>
     </div>
@@ -453,11 +484,11 @@
     <!-- Screenshots GPO -->
     <div class="screenshots">
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_GPO_console.webp" alt="Console de gestion des stratégies de groupe GPMC" />
+        <img loading="lazy" src="assets/img/WinServer_GPO_console.webp" alt="Console de gestion des stratégies de groupe GPMC" />
         <div class="screenshot-caption">GPMC — console de gestion des stratégies de groupe</div>
       </div>
       <div class="screenshot-card">
-        <img src="assets/img/WinServer_GPO_link.webp" alt="Liaison d'une GPO à une OU" />
+        <img loading="lazy" src="assets/img/WinServer_GPO_link.webp" alt="Liaison d'une GPO à une OU" />
         <div class="screenshot-caption">Liaison d'une GPO à une Unité d'Organisation</div>
       </div>
     </div>
@@ -484,6 +515,8 @@
 
   </main>
 
+  <button id="back-to-top" aria-label="Retour en haut">↑</button>
+
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <img id="lightbox-img" src="" alt="" />
@@ -507,6 +540,41 @@
     document.addEventListener("keydown", e => {
       if (e.key === "Escape") lightbox.classList.remove("open");
     });
+
+    // ---- Barre de progression ----
+    (function () {
+      const bar = document.getElementById("progress-bar");
+      const btn = document.getElementById("back-to-top");
+      window.addEventListener("scroll", function () {
+        const scrolled = document.documentElement.scrollTop;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (bar && max > 0) bar.style.width = (scrolled / max * 100) + "%";
+        if (btn) btn.classList.toggle("visible", scrolled > 300);
+      }, { passive: true });
+      if (btn) btn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    })();
+
+    // ---- Animations au scroll ----
+    (function () {
+      if (!window.IntersectionObserver) return;
+      const items = document.querySelectorAll("main .section, main .screenshots");
+      items.forEach(function (el) {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(22px)";
+        el.style.transition = "opacity 0.65s cubic-bezier(0.2,0,0.2,1), transform 0.65s cubic-bezier(0.2,0,0.2,1)";
+      });
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.07, rootMargin: "0px 0px -4% 0px" });
+      items.forEach(function (el) { obs.observe(el); });
+      setTimeout(function () { items.forEach(function (el) { el.style.opacity = "1"; el.style.transform = "translateY(0)"; }); }, 1800);
+    })();
 
     // ---- Theme toggle ----
     const themeToggle = document.getElementById("themeToggle");

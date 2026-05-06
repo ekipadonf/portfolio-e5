@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mathis Lemarié — Portfolio BTS SIO SISR</title>
   <meta name="description" content="Portfolio de Mathis Lemarié, étudiant en BTS SIO option SISR en alternance chez SIPCO." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mathis Lemarié — Portfolio BTS SIO SISR" />
+  <meta property="og:description" content="Portfolio de Mathis Lemarié, étudiant en BTS SIO SISR en alternance chez SIPCO. Projets, veille technologique et tableau de synthèse E5." />
+  <meta property="og:url" content="https://ekipadonf.github.io/portfolio-e5/" />
+  <meta property="og:locale" content="fr_FR" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
@@ -1017,6 +1023,29 @@
     /* PDF wrapper */
     [data-theme="dark"] .pdf-bg { background: #16161b; }
 
+    /* ---- Barre de progression de lecture ---- */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, #4d8eff 0%, #8b5cf6 100%);
+      z-index: 200; pointer-events: none; transition: width 0.08s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ---- Bouton retour en haut ---- */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md); font-family: inherit;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      pointer-events: none;
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #back-to-top:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); }
+
     /* ---- Tableau de synthèse E5 ---- */
     .synth-meta {
       display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem;
@@ -1119,6 +1148,7 @@
   </style>
 </head>
 <body>
+  <div id="progress-bar"></div>
   <div class="bg-canvas" aria-hidden="true">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -1579,7 +1609,7 @@
 
           <div class="bento-item col-3 mint">
             <p class="tile-label">Téléphone</p>
-            <h3 style="font-size: 1.15rem;">06 73 73 98 39</h3>
+            <h3 style="font-size: 1.15rem;"><a href="tel:+33673739839" style="color: inherit; text-decoration: none;">06 73 73 98 39</a></h3>
           </div>
 
           <div class="bento-item col-3 sky">
@@ -1626,6 +1656,8 @@
       </div>
     </div>
   </footer>
+
+  <button id="back-to-top" aria-label="Retour en haut">↑</button>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -1740,6 +1772,19 @@
         el.classList.add("in-view");
       });
     }, 2000);
+
+    // ---- Barre de progression & retour en haut ----
+    (function () {
+      const bar = document.getElementById("progress-bar");
+      const btn = document.getElementById("back-to-top");
+      window.addEventListener("scroll", function () {
+        const scrolled = document.documentElement.scrollTop;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (bar && max > 0) bar.style.width = (scrolled / max * 100) + "%";
+        if (btn) btn.classList.toggle("visible", scrolled > 350);
+      }, { passive: true });
+      if (btn) btn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    })();
   </script>
 </body>
 </html>
