@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathis Lemarié — Portfolio BTS SIO SISR</title>
+  <meta name="description" content="Portfolio de Mathis Lemarié, étudiant en BTS SIO option SISR en alternance chez SIPCO." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <script>try{var _t=localStorage.getItem("theme"),_pd=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(_t==="dark"||(_t===null&&_pd))document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+  <style>
+    /* =========================================
+       Portfolio BTS SIO SISR — Mathis Lemarié
+       Style : Bento Grid / Apple 2024
+       ========================================= */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-dark: #1d1d1f;
+      --text: #1d1d1f;
+      --text-on-dark: #f5f5f7;
+      --text-muted: #6e6e73;
+      --text-dim: #a1a1a6;
+      --border: #e5e5e7;
+
+      --accent: #0066ff;
+      --tile-mint: #d8f0e3;
+      --tile-peach: #ffe4d6;
+      --tile-lavender: #e9e1fb;
+      --tile-sky: #d8ecff;
+      --tile-yellow: #fdf2c8;
+      --tile-pink: #ffdde9;
+
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+      --radius: 22px;
+      --radius-sm: 14px;
+
+      --max-width: 1200px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15.5px;
+      line-height: 1.55;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.005em;
+      position: relative;
+    }
+
+    /* ---- Fond dynamique : blobs gradients flottants ---- */
+    .bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .site-header, main, .site-footer { position: relative; z-index: 1; }
+    .bg-canvas .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.65;
+    }
+    .bg-canvas .blob-1 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, #7eb8fb 0%, transparent 65%);
+      top: -180px; left: -120px;
+      animation: drift-1 30s ease-in-out infinite;
+    }
+    .bg-canvas .blob-2 {
+      width: 460px; height: 460px;
+      background: radial-gradient(circle, #f8a9d8 0%, transparent 65%);
+      top: 18%; right: -140px;
+      animation: drift-2 36s ease-in-out infinite;
+    }
+    .bg-canvas .blob-3 {
+      width: 440px; height: 440px;
+      background: radial-gradient(circle, #a3dcb6 0%, transparent 65%);
+      top: 50%; left: 6%;
+      animation: drift-3 42s ease-in-out infinite;
+    }
+    .bg-canvas .blob-4 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, #ffb88c 0%, transparent 65%);
+      bottom: 8%; right: 8%;
+      animation: drift-4 34s ease-in-out infinite;
+    }
+
+    @keyframes drift-1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(120px, 90px) scale(1.1); }
+    }
+    @keyframes drift-2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(-90px, 110px) scale(0.95); }
+    }
+    @keyframes drift-3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(90px, -70px) scale(1.05); }
+    }
+    @keyframes drift-4 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(-110px, -60px) scale(1.08); }
+    }
+    @keyframes drift-5 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(70px, -100px) scale(0.92); }
+    }
+
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+    a:hover { opacity: 0.7; }
+
+    h1, h2, h3, h4 {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    h1 { font-size: clamp(2.5rem, 6vw, 4.75rem); font-weight: 800; }
+    h2 { font-size: clamp(1.75rem, 3.5vw, 2.6rem); }
+    h3 { font-size: 1.35rem; line-height: 1.2; letter-spacing: -0.02em; }
+    h4 { font-size: 0.95rem; font-weight: 600; }
+
+    p { margin-bottom: 0.85rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul { list-style: none; padding: 0; margin-bottom: 1rem; }
+    ul:last-child { margin-bottom: 0; }
+    ul li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    ul li::before {
+      content: "";
+      position: absolute;
+      left: 0.25rem;
+      top: 0.6em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+    }
+    .bento-item.mint ul li::before    { background: #16a34a; box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15); }
+    .bento-item.peach ul li::before   { background: #ea580c; box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15); }
+    .bento-item.lavender ul li::before{ background: #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15); }
+    .bento-item.sky ul li::before     { background: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+    .bento-item.yellow ul li::before  { background: #ca8a04; box-shadow: 0 0 0 3px rgba(202, 138, 4, 0.15); }
+    .bento-item.pink ul li::before    { background: #db2777; box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15); }
+    .bento-item.dark ul li::before    { background: #60a5fa; box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18); }
+
+    .tag-list, .info-list, .nav-links {
+      list-style: none;
+      padding: 0;
+    }
+    .tag-list li, .info-list li, .nav-links li {
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+    .tag-list li::before, .info-list li::before, .nav-links li::before { content: none; }
+
+    /* ---- Layout ---- */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    main { flex: 1; padding-bottom: 3rem; }
+
+    .anchor-section {
+      scroll-margin-top: 80px;
+      padding: 4rem 0 1rem;
+    }
+
+    /* ---- Section header ---- */
+    .section-head {
+      margin-bottom: 1.75rem;
+      padding: 0 0.5rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .section-head.in-view { opacity: 1; transform: translateY(0); }
+
+    .section-head .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-head .label::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    .section-head h2 {
+      color: var(--text);
+      background: linear-gradient(180deg, var(--text) 0%, #4b4b4f 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ---- Header / nav ---- */
+    .site-header {
+      background: rgba(245, 245, 247, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .nav-brand:hover { opacity: 0.7; }
+    .nav-brand span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      margin: 0;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      padding: 0.45rem 0.95rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-radius: 999px;
+      transition: color 0.2s ease, background 0.2s ease;
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(0,0,0,0.04); opacity: 1; }
+    .nav-links a.active {
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+      box-shadow: inset 0 0 0 1px rgba(0, 102, 255, 0.15);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    /* ---- Bento grid ---- */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .bento-item {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition:
+        opacity 0.7s cubic-bezier(0.2, 0, 0.2, 1),
+        transform 0.5s cubic-bezier(0.2, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      min-width: 0;
+      opacity: 0;
+      transform: translateY(24px);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .bento-item > * { position: relative; z-index: 1; }
+
+    /* Shine sweep on hover */
+    .bento-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.18) 50%,
+        transparent 60%,
+        transparent 100%
+      );
+      transform: translateX(-100%);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      transition: transform 0.9s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease;
+    }
+    .bento-item.in-view:hover::after {
+      transform: translateX(100%);
+      opacity: 1;
+    }
+    .bento-item.dark::after {
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 60%,
+        transparent 100%
+      );
+    }
+
+    .bento-item.in-view { opacity: 1; transform: translateY(0); }
+    .bento-item.in-view:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.10), 0 6px 14px rgba(0,0,0,0.05);
+    }
+    .bento-item.no-hover.in-view:hover {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
+    }
+    .bento-item.no-hover.in-view:hover::after {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .bento-item.dark h1, .bento-item.dark h2, .bento-item.dark h3, .bento-item.dark h4 { color: var(--text-on-dark); }
+    .bento-item.dark .tile-label { color: var(--tile-sky); }
+    .bento-item.dark p { color: rgba(245,245,247,0.8); }
+
+    .bento-item.mint     { background: linear-gradient(135deg, #dff3e7 0%, #b8e6c8 100%); }
+    .bento-item.peach    { background: linear-gradient(135deg, #ffe6d8 0%, #ffcaa6 100%); }
+    .bento-item.lavender { background: linear-gradient(135deg, #ebe3fc 0%, #d2c3f5 100%); }
+    .bento-item.sky      { background: linear-gradient(135deg, #dcefff 0%, #b9d8f6 100%); }
+    .bento-item.yellow   { background: linear-gradient(135deg, #fdf3cc 0%, #f9dc8b 100%); }
+    .bento-item.pink     { background: linear-gradient(135deg, #ffe0eb 0%, #fbb8cf 100%); }
+
+    /* Tuiles noires « marquee » */
+    .bento-item.dark {
+      background: linear-gradient(135deg, #1d1d1f 0%, #0a0a0c 100%);
+      color: var(--text-on-dark);
+    }
+    .bento-item.dark.hero-tile {
+      background: linear-gradient(135deg, #1d1d1f 0%, #0a0a0c 100%);
+    }
+    .bento-item.dark.hero-tile::before,
+    .bento-item.dark.hero-tile::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.55;
+    }
+    .bento-item.dark.hero-tile::before {
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, #0066ff 0%, transparent 70%);
+      top: -140px; right: -100px;
+      animation: float-blob 18s ease-in-out infinite;
+    }
+    .bento-item.dark.hero-tile::after {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, #ff3d8a 0%, transparent 70%);
+      bottom: -120px; left: 25%;
+      animation: float-blob 24s ease-in-out infinite reverse;
+    }
+
+    @keyframes float-blob {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%      { transform: translate(40px, -30px) scale(1.08); }
+      66%      { transform: translate(-30px, 25px) scale(0.94); }
+    }
+    @keyframes gradient-shift {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    @keyframes pulse-soft {
+      0%, 100% { opacity: 0.55; }
+      50%      { opacity: 0.85; }
+    }
+
+    /* Spans */
+    .col-12 { grid-column: span 12; }
+    .col-9  { grid-column: span 9; }
+    .col-8  { grid-column: span 8; }
+    .col-7  { grid-column: span 7; }
+    .col-6  { grid-column: span 6; }
+    .col-5  { grid-column: span 5; }
+    .col-4  { grid-column: span 4; }
+    .col-3  { grid-column: span 3; }
+
+    /* Tile common */
+    .tile-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .tile-stat {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-top: auto;
+    }
+    .bento-item.dark .tile-stat { color: var(--text-on-dark); }
+
+    /* ---- Hero ---- */
+    .hero-name {
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 0.92;
+      margin-bottom: 1.2rem;
+    }
+    .hero-name span {
+      background: linear-gradient(90deg, #4d8eff 0%, #8b5cf6 35%, #ff5b8a 70%, #4d8eff 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: gradient-shift 7s linear infinite;
+    }
+    .hero-lead {
+      font-size: 1.08rem;
+      color: rgba(245,245,247,0.85);
+      max-width: 42ch;
+      line-height: 1.55;
+    }
+
+    /* Badge disponibilité dans le hero */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-on-dark);
+      margin-bottom: 1rem;
+      backdrop-filter: blur(10px);
+      width: fit-content;
+    }
+    .status-badge::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+      animation: pulse-dot 2s ease-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      70%  { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+
+    /* Stat tiles plus présentes */
+    .bento-item.stat {
+      min-height: 140px;
+      justify-content: space-between;
+    }
+    .bento-item.stat .tile-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .bento-item.stat .tile-label::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .bento-item.stat.mint .tile-label::before    { background: #0d6b3d; }
+    .bento-item.stat.peach .tile-label::before   { background: #c2410c; }
+    .bento-item.stat.lavender .tile-label::before{ background: #5b21b6; }
+    .bento-item.stat.sky .tile-label::before     { background: #1e6cc7; }
+    .bento-item.stat .tile-stat {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+    }
+
+    /* Photo tile avec initiales animées */
+    .photo-tile {
+      background: linear-gradient(135deg, var(--tile-sky) 0%, var(--tile-lavender) 50%, var(--tile-pink) 100%);
+      background-size: 200% 200%;
+      animation: gradient-shift 12s linear infinite;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 500;
+      min-height: 240px;
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-tile .initials {
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: rgba(0,0,0,0.5);
+      mix-blend-mode: overlay;
+      line-height: 1;
+    }
+    .photo-tile .photo-hint {
+      position: absolute;
+      bottom: 1rem;
+      left: 0; right: 0;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(0,0,0,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .photo-tile img { width: 100%; height: 100%; object-fit: cover; border-radius: calc(var(--radius) - 8px); position: absolute; inset: 0; }
+
+    /* ---- Buttons ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: var(--text);
+      color: var(--bg);
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+      border-radius: 999px;
+      letter-spacing: -0.01em;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .btn::after {
+      content: "→";
+      font-size: 1.05em;
+      transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .btn:hover::after { transform: translateX(4px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.15); }
+
+    .btn-light {
+      background: var(--surface);
+      color: var(--text);
+    }
+    .btn-light:hover { opacity: 1; background: rgba(255,255,255,0.85); }
+
+    .actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    /* ---- Tags ---- */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem 0.85rem;
+      line-height: 1;
+      background: rgba(255,255,255,0.7);
+      color: var(--text);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .tag:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.85);
+    }
+
+    .bento-item.dark .tag {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text-on-dark);
+    }
+    .bento-item.dark .tag:hover { background: rgba(255,255,255,0.16); }
+
+    /* ---- Tableau ---- */
+    .table-wrapper {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: transparent;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      padding: 0.95rem 1.25rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.02) 100%);
+      font-weight: 600;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr { border-top: 1px solid var(--border); transition: background 0.15s ease; }
+    tbody tr:hover { background: rgba(0, 102, 255, 0.04); }
+    tbody tr td:first-child {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- Profile photo ---- */
+    .profile-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--tile-peach) 0%, var(--tile-pink) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-align: center;
+      padding: 1rem;
+      overflow: hidden;
+    }
+    .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ---- Info list (dans tile) ---- */
+    .info-list {
+      display: grid;
+      gap: 0;
+    }
+    .info-list li {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      align-items: baseline;
+      padding: 0.55rem 0;
+      border-bottom: 1px dashed rgba(0,0,0,0.06);
+    }
+    .info-list li:last-child { border-bottom: none; }
+    .info-list strong {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .info-list span { color: var(--text); font-weight: 500; }
+    .bento-item.dark .info-list strong { color: rgba(245,245,247,0.55); }
+    .bento-item.dark .info-list span { color: var(--text-on-dark); }
+    .bento-item.dark .info-list li { border-bottom-color: rgba(255,255,255,0.08); }
+
+    /* ---- Bloc compétences ---- */
+    .bloc-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      background: var(--text);
+      color: var(--bg);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      box-shadow:
+        0 0 0 6px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+      transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .bento-item:hover .bloc-num { transform: scale(1.08) rotate(-4deg); }
+    .bento-item.dark .bloc-num {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.06);
+    }
+    .bento-item.mint .bloc-num {
+      background: linear-gradient(135deg, #16a34a 0%, #047857 100%);
+      color: white;
+      box-shadow: 0 0 0 6px rgba(13, 107, 61, 0.12);
+    }
+    .bento-item.peach .bloc-num {
+      background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+      color: white;
+      box-shadow: 0 0 0 6px rgba(194, 65, 12, 0.12);
+    }
+    .bento-item.lavender .bloc-num {
+      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+      color: white;
+      box-shadow: 0 0 0 6px rgba(91, 33, 182, 0.12);
+    }
+
+    /* ---- Note / callout ---- */
+    .note {
+      background: linear-gradient(135deg, #fef9d7 0%, #fef0bb 100%);
+      border-radius: var(--radius-sm);
+      padding: 1.15rem 1.35rem;
+      font-size: 0.92rem;
+      color: var(--text);
+      position: relative;
+      border: 1px solid rgba(202, 138, 4, 0.18);
+    }
+    .note::before {
+      content: "💡";
+      display: inline-block;
+      font-size: 1rem;
+      margin-right: 0.55rem;
+      vertical-align: middle;
+    }
+
+    /* ---- Footer ---- */
+    .site-footer {
+      padding: 2rem 0 3rem;
+    }
+
+    .footer-tile {
+      background: var(--surface-dark);
+      color: var(--text-on-dark);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .footer-brand {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .footer-brand span { color: var(--accent); }
+
+    .footer-meta {
+      font-size: 0.85rem;
+      color: rgba(245,245,247,0.6);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* ---- Sub-headings (rare in bento — use sparingly) ---- */
+    .subhead {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 1.5rem 0 0.75rem;
+      letter-spacing: -0.015em;
+    }
+
+    code {
+      background: rgba(0,0,0,0.06);
+      padding: 0.1rem 0.45rem;
+      border-radius: 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      color: var(--text);
+    }
+
+    /* Groupes de compétences dans la tuile Présentation */
+    .skill-group { margin-top: 1.05rem; }
+    .skill-group:first-of-type { margin-top: 0.6rem; }
+    .skill-cat {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .skill-cat::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .skill-group .tag-list { margin-top: 0; }
+
+    sup { font-size: 0.65em; }
+
+    /* =========================================
+       DARK MODE & THEME TOGGLE
+       ========================================= */
+
+    .nav-end {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; padding: 0;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.25s cubic-bezier(0.2,0,0.2,1);
+    }
+    .theme-toggle:hover { transform: rotate(14deg) scale(1.1); background: rgba(0,0,0,0.05); }
+    .theme-toggle svg {
+      width: 15px; height: 15px; display: block;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      pointer-events: none;
+    }
+    @keyframes toggle-spin {
+      from { transform: rotate(0deg) scale(1.15); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .theme-toggle.rotating { animation: toggle-spin 0.42s cubic-bezier(0.2,0,0.2,1); }
+
+    /* Fond du wrapper iframe PDF */
+    .pdf-bg { background: #f0f0f0; }
+
+    /* Transition fluide lors du changement de thème */
+    .theme-transitioning, .theme-transitioning * {
+      transition:
+        background-color 0.35s cubic-bezier(0.2,0,0.2,1),
+        border-color     0.35s cubic-bezier(0.2,0,0.2,1),
+        color            0.35s cubic-bezier(0.2,0,0.2,1) !important;
+    }
+
+    /* ---- Variables dark ---- */
+    [data-theme="dark"] {
+      --bg:           #0c0c0f;
+      --surface:      #18181d;
+      --surface-dark: #0a0a0d;
+      --text:         #f0f0f2;
+      --text-on-dark: #f0f0f2;
+      --text-muted:   #8e8e96;
+      --text-dim:     #5a5a63;
+      --border:       rgba(255,255,255,0.09);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+      --shadow-md: 0 2px 6px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.55);
+    }
+
+    /* Header */
+    [data-theme="dark"] .site-header {
+      background: rgba(12,12,15,0.88);
+      border-bottom-color: rgba(255,255,255,0.05);
+    }
+    [data-theme="dark"] .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .nav-links a.active {
+      background: linear-gradient(135deg, rgba(0,102,255,0.18) 0%, rgba(139,92,246,0.18) 100%);
+      box-shadow: inset 0 0 0 1px rgba(0,102,255,0.28);
+    }
+    [data-theme="dark"] .nav-toggle         { background: var(--surface); border-color: var(--border); color: var(--text); }
+    [data-theme="dark"] .theme-toggle:hover { background: rgba(255,255,255,0.1); }
+    [data-theme="dark"] .nav-links          { background: var(--surface); }
+
+    /* Section head */
+    [data-theme="dark"] .section-head h2 {
+      background: linear-gradient(180deg, #f0f0f2 0%, #78788a 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* Bento tiles */
+    [data-theme="dark"] .bento-item { background: var(--surface); }
+    [data-theme="dark"] .bento-item.in-view:hover {
+      box-shadow: 0 18px 42px rgba(0,0,0,0.45), 0 6px 14px rgba(0,0,0,0.3);
+    }
+    [data-theme="dark"] .bento-item.dark           { background: linear-gradient(135deg,#0e0e12 0%,#060608 100%); }
+    [data-theme="dark"] .bento-item.dark.hero-tile { background: linear-gradient(135deg,#0e0e12 0%,#060608 100%); }
+    [data-theme="dark"] .bento-item.mint     { background: linear-gradient(135deg,#0d2e1c 0%,#071e11 100%); }
+    [data-theme="dark"] .bento-item.peach    { background: linear-gradient(135deg,#2e180a 0%,#1e0f06 100%); }
+    [data-theme="dark"] .bento-item.lavender { background: linear-gradient(135deg,#1c1240 0%,#110b28 100%); }
+    [data-theme="dark"] .bento-item.sky      { background: linear-gradient(135deg,#0a1e38 0%,#061424 100%); }
+    [data-theme="dark"] .bento-item.yellow   { background: linear-gradient(135deg,#251c06 0%,#181202 100%); }
+    [data-theme="dark"] .bento-item.pink     { background: linear-gradient(135deg,#2e0c18 0%,#1e0710 100%); }
+
+    /* Dots des stat tiles */
+    [data-theme="dark"] .bento-item.stat.mint .tile-label::before     { background: #22c55e; }
+    [data-theme="dark"] .bento-item.stat.peach .tile-label::before    { background: #f97316; }
+    [data-theme="dark"] .bento-item.stat.lavender .tile-label::before { background: #a78bfa; }
+    [data-theme="dark"] .bento-item.stat.sky .tile-label::before      { background: #60a5fa; }
+
+    /* Tags */
+    [data-theme="dark"] .tag       { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1); color: var(--text); }
+    [data-theme="dark"] .tag:hover { background: rgba(255,255,255,0.13); }
+
+    /* Code */
+    [data-theme="dark"] code { background: rgba(255,255,255,0.1); }
+
+    /* Tables */
+    [data-theme="dark"] th { background: linear-gradient(180deg,rgba(255,255,255,0.05) 0%,rgba(255,255,255,0.02) 100%); border-bottom-color: var(--border); }
+    [data-theme="dark"] tbody tr       { border-top-color: var(--border); }
+    [data-theme="dark"] tbody tr:hover { background: rgba(0,102,255,0.08); }
+
+    /* Note callout */
+    [data-theme="dark"] .note { background: linear-gradient(135deg,#26200e 0%,#1a1609 100%); border-color: rgba(202,138,4,0.22); }
+
+    /* Info list */
+    [data-theme="dark"] .info-list li { border-bottom-color: rgba(255,255,255,0.07); }
+
+    /* Blobs — moins intenses en dark */
+    [data-theme="dark"] .bg-canvas .blob { opacity: 0.28; }
+
+    /* Boutons */
+    [data-theme="dark"] .btn-outline:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
+    [data-theme="dark"] .btn-light         { background: rgba(255,255,255,0.10); color: var(--text); }
+    [data-theme="dark"] .btn-light:hover   { background: rgba(255,255,255,0.18); }
+
+    /* PDF wrapper */
+    [data-theme="dark"] .pdf-bg { background: #16161b; }
+
+    /* ---- Tableau de synthèse E5 ---- */
+    .synth-meta {
+      display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem;
+      font-size: 0.82rem; color: var(--text-muted);
+      margin-bottom: 1rem; padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .synth-meta strong { color: var(--text); font-weight: 600; }
+    .synth-scroll { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    .synth-table {
+      width: 100%; min-width: 920px;
+      border-collapse: collapse; font-size: 0.81rem; line-height: 1.35;
+      background: var(--surface);
+    }
+    .synth-table thead th {
+      background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.02) 100%);
+      font-weight: 600; font-size: 0.71rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 0.75rem 0.8rem; border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border); vertical-align: top; text-align: center;
+    }
+    .synth-table thead th:last-child { border-right: none; }
+    .synth-table thead th.col-realisation { text-align: left; min-width: 210px; }
+    .synth-table thead th.col-periode { min-width: 88px; }
+    .synth-table thead th.col-comp { width: 105px; }
+    .synth-table .sub-comp {
+      font-size: 0.67rem; color: var(--text-muted); font-weight: 400;
+      text-transform: none; letter-spacing: 0; line-height: 1.5;
+      padding: 0.55rem 0.8rem; border-bottom: 2px solid var(--border);
+      border-right: 1px solid var(--border); vertical-align: top; text-align: left;
+      background: linear-gradient(180deg, rgba(0,0,0,0.015) 0%, transparent 100%);
+    }
+    .synth-table .sub-comp:last-child { border-right: none; }
+    .synth-table .section-sep td {
+      background: linear-gradient(135deg, rgba(0,102,255,0.07) 0%, rgba(139,92,246,0.07) 100%);
+      color: var(--accent); font-weight: 600; font-size: 0.76rem;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 0.5rem 0.9rem; border-top: 2px solid rgba(0,102,255,0.14);
+      border-bottom: 1px solid var(--border);
+    }
+    .synth-table tbody tr { border-top: 1px solid var(--border); transition: background 0.15s ease; }
+    .synth-table tbody tr:not(.section-sep):hover { background: rgba(0,102,255,0.03); }
+    .synth-table td { padding: 0.65rem 0.9rem; vertical-align: middle; color: var(--text); border-right: 1px solid var(--border); }
+    .synth-table td:last-child { border-right: none; }
+    .synth-table td.periode { font-size: 0.74rem; color: var(--text-muted); text-align: center; white-space: nowrap; }
+    .synth-table td.check { text-align: center; font-size: 1rem; color: var(--accent); background: rgba(0,0,0,0.015); }
+    .synth-table td.check.on { background: rgba(0,102,255,0.09); font-size: 1.1rem; }
+
+    [data-theme="dark"] .synth-table { background: var(--surface); }
+    [data-theme="dark"] .synth-table thead th { background: linear-gradient(180deg,rgba(255,255,255,0.05) 0%,rgba(255,255,255,0.02) 100%); border-color: var(--border); }
+    [data-theme="dark"] .synth-table .sub-comp { border-color: var(--border); background: rgba(255,255,255,0.015); }
+    [data-theme="dark"] .synth-table .section-sep td { background: linear-gradient(135deg,rgba(0,102,255,0.12) 0%,rgba(139,92,246,0.12) 100%); border-color: rgba(0,102,255,0.22); }
+    [data-theme="dark"] .synth-table td { border-color: var(--border); }
+    [data-theme="dark"] .synth-table td.check { background: rgba(255,255,255,0.025); }
+    [data-theme="dark"] .synth-table td.check.on { background: rgba(0,102,255,0.16); }
+    [data-theme="dark"] .synth-scroll { border-color: var(--border); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 980px) {
+      .col-9 { grid-column: span 12; }
+      .col-8 { grid-column: span 12; }
+      .col-7 { grid-column: span 12; }
+      .col-6 { grid-column: span 12; }
+      .col-5 { grid-column: span 12; }
+      .col-4 { grid-column: span 6; }
+      .col-3 { grid-column: span 6; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 1rem; }
+      .anchor-section { padding: 2.5rem 0 0.5rem; }
+      .nav { padding: 0.85rem 1rem; }
+      .nav-toggle { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--surface);
+        padding: 0.75rem 1rem 1rem;
+        gap: 0.25rem;
+        box-shadow: var(--shadow-md);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 0.65rem 0.85rem; }
+
+      .col-4 { grid-column: span 12; }
+      .col-3 { grid-column: span 6; }
+
+      .bento-item { padding: 1.5rem; border-radius: 18px; }
+
+      .info-list li { grid-template-columns: 1fr; gap: 0.1rem; }
+
+      .footer-tile { grid-template-columns: 1fr; }
+      .footer-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="nav-brand" href="#accueil">Mathis Lemarié<span>.</span></a>
+      <div class="nav-end">
+        <button class="theme-toggle" id="themeToggle" aria-label="Passer en mode sombre">
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">Menu</button>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#presentation">Présentation</a></li>
+        <li><a href="#entreprise">Entreprise</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#veille">Veille</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============== ACCUEIL ============== -->
+    <section id="accueil" class="anchor-section">
+      <div class="container">
+        <div class="bento">
+          <div class="bento-item dark hero-tile col-12">
+            <span class="status-badge">Étudiant en alternance · ouvert aux échanges</span>
+            <p class="tile-label">Portfolio · BTS SIO · SISR · 2025–2027</p>
+            <h1 class="hero-name">Mathis<br /><span>Lemarié.</span></h1>
+            <p class="hero-lead">
+              Étudiant en BTS Services Informatiques aux Organisations,
+              option SISR, en alternance chez SIPCO.
+            </p>
+            <div class="actions" style="margin-top: 1.25rem;">
+              <a class="btn btn-light" href="#projets">Voir mes projets</a>
+              <a class="btn btn-outline" href="#contact" style="color: var(--text-on-dark); border-color: rgba(255,255,255,0.2);">Me contacter</a>
+            </div>
+          </div>
+
+          <div class="bento-item stat col-3">
+            <p class="tile-label">Statut</p>
+            <p class="tile-stat">1<sup>re</sup> année</p>
+          </div>
+
+          <div class="bento-item stat mint col-3">
+            <p class="tile-label">Formation</p>
+            <p class="tile-stat">BTS SIO<br />SISR</p>
+          </div>
+
+          <div class="bento-item stat peach col-3">
+            <p class="tile-label">Alternance</p>
+            <p class="tile-stat">SIPCO</p>
+          </div>
+
+          <div class="bento-item stat sky col-3">
+            <p class="tile-label">Localisation</p>
+            <p class="tile-stat">[ville]</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PRÉSENTATION ============== -->
+    <section id="presentation" class="anchor-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">02 — À propos</span>
+          <h2>Présentation</h2>
+        </div>
+
+        <div class="bento">
+          <div class="bento-item col-7">
+            <p class="tile-label">Qui suis-je</p>
+            <h3>[Phrase d'accroche — ex. "Passionné par les réseaux et la cybersécurité"]</h3>
+            <p>
+              [À compléter : 2-3 paragraphes — âge, ville, parcours scolaire,
+              motivation pour le SISR, objectifs après le BTS.]
+            </p>
+            <div class="actions">
+              <a class="btn" href="assets/docs/cv.pdf" download>Télécharger mon CV</a>
+            </div>
+          </div>
+
+          <div class="bento-item col-5 sky">
+            <p class="tile-label">Compétences techniques</p>
+            <h3>Stack maîtrisée</h3>
+
+            <div class="skill-group">
+              <p class="skill-cat">Systèmes d'exploitation</p>
+              <ul class="tag-list">
+                <li class="tag">Linux Debian</li>
+                <li class="tag">Linux Ubuntu</li>
+                <li class="tag">Windows</li>
+                <li class="tag">Windows Server</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <p class="skill-cat">Services & annuaires</p>
+              <ul class="tag-list">
+                <li class="tag">Active Directory</li>
+                <li class="tag">DHCP</li>
+                <li class="tag">DNS</li>
+                <li class="tag">GPO</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <p class="skill-cat">Réseaux</p>
+              <ul class="tag-list">
+                <li class="tag">TCP/IP</li>
+                <li class="tag">VLAN</li>
+                <li class="tag">Routage</li>
+                <li class="tag">Cisco</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <p class="skill-cat">Cybersécurité</p>
+              <ul class="tag-list">
+                <li class="tag">Pare-feu</li>
+                <li class="tag">VPN</li>
+                <li class="tag">RGPD</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <p class="skill-cat">Intelligence artificielle</p>
+              <ul class="tag-list">
+                <li class="tag">IA générative</li>
+                <li class="tag">Prompt engineering</li>
+                <li class="tag">[à compléter]</li>
+              </ul>
+            </div>
+
+            <div class="skill-group">
+              <p class="skill-cat">Outils</p>
+              <ul class="tag-list">
+                <li class="tag">GLPI</li>
+                <li class="tag">Wireshark</li>
+                <li class="tag">PowerShell</li>
+                <li class="tag">Bash</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ENTREPRISE ============== -->
+    <section id="entreprise" class="anchor-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">03 — Alternance</span>
+          <h2>Entreprise</h2>
+        </div>
+
+        <div class="bento">
+          <div class="bento-item col-8">
+            <p class="tile-label">Mon entreprise</p>
+            <h3 style="font-size: 1.7rem; margin-top: 0.4rem;">SIPCO</h3>
+            <p>
+              [À compléter — description de SIPCO : secteur d'activité, taille,
+              implantation, clientèle, services proposés, etc.]
+            </p>
+          </div>
+
+          <div class="bento-item col-4 peach">
+            <p class="tile-label">Fiche</p>
+            <ul class="info-list" style="margin-top: 0.5rem;">
+              <li><strong>Secteur</strong><span>[à compléter]</span></li>
+              <li><strong>Effectif</strong><span>[à compléter]</span></li>
+              <li><strong>Localisation</strong><span>[ville]</span></li>
+              <li><strong>Site web</strong><span>[à compléter]</span></li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-3">
+            <p class="tile-label">Intitulé</p>
+            <h3>[Ex. Technicien systèmes &amp; réseaux]</h3>
+          </div>
+
+          <div class="bento-item col-3">
+            <p class="tile-label">Service</p>
+            <h3>[Service informatique]</h3>
+          </div>
+
+          <div class="bento-item col-3">
+            <p class="tile-label">Tuteur</p>
+            <h3>[Nom du tuteur]</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">[Fonction]</p>
+          </div>
+
+          <div class="bento-item col-3">
+            <p class="tile-label">Début</p>
+            <h3>[Date]</h3>
+          </div>
+
+          <div class="bento-item col-7 sky">
+            <p class="tile-label">Missions principales</p>
+            <ul style="margin-top: 0.6rem;">
+              <li>[Mission 1 — à compléter]</li>
+              <li>[Mission 2 — à compléter]</li>
+              <li>[Mission 3 — à compléter]</li>
+              <li>[Mission 4 — à compléter]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-5">
+            <p class="tile-label">Environnement technique</p>
+            <ul class="tag-list">
+              <li class="tag">[Windows / Linux]</li>
+              <li class="tag">[Active Directory]</li>
+              <li class="tag">[Hyperviseur]</li>
+              <li class="tag">[Pare-feu / VPN]</li>
+              <li class="tag">[Ticketing]</li>
+              <li class="tag">[Sauvegarde]</li>
+              <li class="tag">[Supervision]</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PROJETS ============== -->
+    <section id="projets" class="anchor-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">04 — Réalisations</span>
+          <h2>Projets</h2>
+        </div>
+
+        <div class="bento">
+          <div class="bento-item col-12 no-hover">
+            <p class="tile-label">Tableau de synthèse · Épreuve E5 · BTS SIO SISR</p>
+            <div class="synth-meta">
+              <span><strong>Candidat :</strong> LEMARIÉ Mathis</span>
+              <span><strong>Centre :</strong> AFTEC RENNES</span>
+              <span><strong>Option :</strong> ☑ SISR</span>
+              <span><strong>Session :</strong> 2025</span>
+              <span><strong>Portfolio :</strong> <a href="https://ekipadonf.github.io/portfolio-e5/" target="_blank" rel="noopener">ekipadonf.github.io/portfolio-e5</a></span>
+            </div>
+            <div class="synth-scroll">
+              <table class="synth-table">
+                <thead>
+                  <tr>
+                    <th class="col-realisation" rowspan="2">Réalisation professionnelle</th>
+                    <th class="col-periode" rowspan="2">Période</th>
+                    <th class="col-comp">Gérer le patrimoine informatique</th>
+                    <th class="col-comp">Répondre aux incidents &amp; demandes</th>
+                    <th class="col-comp">Développer la présence en ligne</th>
+                    <th class="col-comp">Travailler en mode projet</th>
+                    <th class="col-comp">Mettre à disposition un service</th>
+                    <th class="col-comp">Organiser son développement professionnel</th>
+                  </tr>
+                  <tr>
+                    <td class="sub-comp">▸ Recenser les ressources numériques<br>▸ Exploiter référentiels &amp; normes<br>▸ Habilitations associées à un service<br>▸ Continuité d'un service<br>▸ Gérer des sauvegardes<br>▸ Règles d'utilisation</td>
+                    <td class="sub-comp">▸ Collecter &amp; orienter des demandes<br>▸ Traiter demandes réseau / système<br>▸ Traiter demandes applicatives</td>
+                    <td class="sub-comp">▸ Valoriser image organisation<br>▸ Référencer services en ligne<br>▸ Faire évoluer un site Web</td>
+                    <td class="sub-comp">▸ Analyser objectifs &amp; modalités<br>▸ Planifier les activités<br>▸ Évaluer indicateurs &amp; écarts</td>
+                    <td class="sub-comp">▸ Tests d'intégration &amp; acceptation<br>▸ Déployer un service<br>▸ Accompagner les utilisateurs</td>
+                    <td class="sub-comp">▸ Environnement d'apprentissage<br>▸ Veille informationnelle<br>▸ Identité professionnelle<br>▸ Projet professionnel</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="section-sep"><td colspan="8">📚 Réalisations en cours de formation</td></tr>
+                  <tr>
+                    <td>Mise en place d'un Windows Server (AD, DHCP, DNS, GPO)</td>
+                    <td class="periode"></td>
+                    <td class="check on">●</td><td class="check"></td><td class="check"></td><td class="check on">●</td><td class="check on">●</td><td class="check on">●</td>
+                  </tr>
+                  <tr>
+                    <td>Mise en place d'un GLPI via Ubuntu</td>
+                    <td class="periode"></td>
+                    <td class="check on">●</td><td class="check on">●</td><td class="check"></td><td class="check on">●</td><td class="check on">●</td><td class="check on">●</td>
+                  </tr>
+                  <tr>
+                    <td>Configuration d'un routeur PFsense</td>
+                    <td class="periode"></td>
+                    <td class="check on">●</td><td class="check"></td><td class="check"></td><td class="check on">●</td><td class="check on">●</td><td class="check on">●</td>
+                  </tr>
+                  <tr class="section-sep"><td colspan="8">🏢 Réalisations en milieu professionnel — 1ère année</td></tr>
+                  <tr>
+                    <td>Configuration de boîte mail Outlook via Microsoft 365 Admin</td>
+                    <td class="periode"></td>
+                    <td class="check on">●</td><td class="check on">●</td><td class="check"></td><td class="check"></td><td class="check on">●</td><td class="check on">●</td>
+                  </tr>
+                  <tr>
+                    <td>Configuration d'un VPN WireGuard</td>
+                    <td class="periode"></td>
+                    <td class="check on">●</td><td class="check"></td><td class="check"></td><td class="check on">●</td><td class="check on">●</td><td class="check on">●</td>
+                  </tr>
+                  <tr>
+                    <td>Création de règles sur routeur</td>
+                    <td class="periode"></td>
+                    <td class="check on">●</td><td class="check on">●</td><td class="check"></td><td class="check"></td><td class="check on">●</td><td class="check on">●</td>
+                  </tr>
+                  <tr class="section-sep"><td colspan="8">🏢 Réalisations en milieu professionnel — 2ème année</td></tr>
+                  <tr>
+                    <td style="color: var(--text-muted); font-style: italic;">À compléter</td>
+                    <td class="periode"></td>
+                    <td class="check"></td><td class="check"></td><td class="check"></td><td class="check"></td><td class="check"></td><td class="check"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bento-item col-7 sky">
+            <p class="tile-label">Projet 01 · [Date]</p>
+            <h3 style="font-size: 1.5rem;">[Titre du projet 1]</h3>
+            <p><strong>Contexte —</strong> [Présentation de la situation, du besoin de l'entreprise ou du cadre pédagogique.]</p>
+            <p><strong>Objectifs —</strong> [Objectifs principaux.]</p>
+            <p><strong>Solution —</strong> [Démarche, outils, étapes techniques.]</p>
+            <p><strong>Résultats —</strong> [Ce qui a été livré, bénéfices, apprentissages.]</p>
+            <ul class="tag-list">
+              <li class="tag">[Compétence 1]</li>
+              <li class="tag">[Compétence 2]</li>
+              <li class="tag">[Techno]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-5">
+            <p class="tile-label">Projet 02 · [Date]</p>
+            <h3>[Titre du projet 2]</h3>
+            <p><strong>Contexte —</strong> [À compléter]</p>
+            <p><strong>Objectifs —</strong> [À compléter]</p>
+            <p><strong>Solution —</strong> [À compléter]</p>
+            <p><strong>Résultats —</strong> [À compléter]</p>
+            <ul class="tag-list">
+              <li class="tag">[à compléter]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-12 mint">
+            <p class="tile-label">Projet 03 · [Date]</p>
+            <h3 style="font-size: 1.5rem;">[Titre du projet 3]</h3>
+            <p><strong>Contexte —</strong> [À compléter]</p>
+            <p><strong>Objectifs —</strong> [À compléter]</p>
+            <p><strong>Solution —</strong> [À compléter]</p>
+            <p><strong>Résultats —</strong> [À compléter]</p>
+            <ul class="tag-list">
+              <li class="tag">[à compléter]</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== VEILLE ============== -->
+    <section id="veille" class="anchor-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">05 — Veille technologique</span>
+          <h2>Veille</h2>
+        </div>
+
+        <div class="bento">
+          <div class="bento-item col-12 dark">
+            <p class="tile-label">Méthodologie</p>
+            <h3 style="font-size: 1.5rem;">5 étapes : collecter · filtrer · analyser · synthétiser · diffuser</h3>
+            <p>
+              Ma veille me permet de rester à jour sur les évolutions techniques,
+              les vulnérabilités et les bonnes pratiques du domaine SISR.
+            </p>
+          </div>
+
+          <div class="bento-item col-6 peach">
+            <p class="tile-label">Thème 01</p>
+            <h3>[Cybersécurité &amp; vulnérabilités]</h3>
+            <p>[Pourquoi ce thème, en quoi il est utile pour ton métier.]</p>
+          </div>
+
+          <div class="bento-item col-6 sky">
+            <p class="tile-label">Thème 02</p>
+            <h3>[Évolution des réseaux]</h3>
+            <p>[Description du sujet et angle d'étude.]</p>
+          </div>
+
+          <div class="bento-item col-6">
+            <p class="tile-label">Sources — Flux RSS</p>
+            <ul style="margin-top: 0.6rem;">
+              <li><a href="https://www.cert.ssi.gouv.fr/" target="_blank" rel="noopener">CERT-FR</a> — alertes &amp; avis de sécurité</li>
+              <li><a href="https://www.zataz.com/" target="_blank" rel="noopener">Zataz</a> — actualité cybersécurité</li>
+              <li>[source à compléter]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-6">
+            <p class="tile-label">Sources — Web</p>
+            <ul style="margin-top: 0.6rem;">
+              <li><a href="https://www.lemondeinformatique.fr/" target="_blank" rel="noopener">Le Monde Informatique</a></li>
+              <li><a href="https://www.nextinpact.com/" target="_blank" rel="noopener">Next</a></li>
+              <li>[site à compléter]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-6 yellow">
+            <p class="tile-label">Outils d'agrégation</p>
+            <ul style="margin-top: 0.6rem;">
+              <li>Google Alerts (mots-clés : <code>zero-day</code>, <code>ransomware</code>…)</li>
+              <li>Feedly (agrégateur de flux RSS)</li>
+              <li>[outil à compléter]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-6">
+            <p class="tile-label">Communautés</p>
+            <ul style="margin-top: 0.6rem;">
+              <li>LinkedIn — comptes spécialisés cybersécurité / réseaux</li>
+              <li>YouTube — chaînes techniques</li>
+              <li>[à compléter]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-12">
+            <p class="tile-label">Synthèses</p>
+            <h3>Mes synthèses régulières</h3>
+          </div>
+
+          <div class="bento-item col-4 lavender">
+            <p class="tile-label">Synthèse 01 · [Date]</p>
+            <h3>[Titre de la synthèse 1]</h3>
+            <p>[Résumé : faille / nouveauté / évolution. Sources, impact, bonnes pratiques.]</p>
+            <ul class="tag-list">
+              <li class="tag">[Mot-clé 1]</li>
+              <li class="tag">[Mot-clé 2]</li>
+            </ul>
+          </div>
+
+          <div class="bento-item col-4 mint">
+            <p class="tile-label">Synthèse 02 · [Date]</p>
+            <h3>[Titre de la synthèse 2]</h3>
+            <p>[À compléter]</p>
+            <ul class="tag-list"><li class="tag">[Mot-clé]</li></ul>
+          </div>
+
+          <div class="bento-item col-4 pink">
+            <p class="tile-label">Synthèse 03 · [Date]</p>
+            <h3>[Titre de la synthèse 3]</h3>
+            <p>[À compléter]</p>
+            <ul class="tag-list"><li class="tag">[Mot-clé]</li></ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CONTACT ============== -->
+    <section id="contact" class="anchor-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">06 — Me joindre</span>
+          <h2>Contact</h2>
+        </div>
+
+        <div class="bento">
+          <div class="bento-item col-6 dark">
+            <p class="tile-label">Email</p>
+            <h3 style="font-size: 1.5rem; word-break: break-all;">
+              <a href="mailto:[ton.email@exemple.com]" style="color: var(--text-on-dark);">[ton.email@exemple.com]</a>
+            </h3>
+          </div>
+
+          <div class="bento-item col-3 mint">
+            <p class="tile-label">Téléphone</p>
+            <h3>[à compléter]</h3>
+          </div>
+
+          <div class="bento-item col-3 sky">
+            <p class="tile-label">Localisation</p>
+            <h3>[Ville]</h3>
+          </div>
+
+          <div class="bento-item col-6 peach">
+            <p class="tile-label">LinkedIn</p>
+            <h3><a href="#" target="_blank" rel="noopener">[Lien LinkedIn]</a></h3>
+          </div>
+
+          <div class="bento-item col-6">
+            <p class="tile-label">CV</p>
+            <h3>Mon CV au format PDF</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Place ton fichier dans <code>assets/docs/cv.pdf</code>.
+            </p>
+            <div class="actions">
+              <a class="btn" href="assets/docs/cv.pdf" download>Télécharger</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-tile">
+        <div class="footer-brand">Mathis Lemarié<span>.</span></div>
+        <div class="footer-meta">
+          © <span id="year">2026</span><br />
+          Portfolio · BTS SIO · SISR<br />
+          Alternance @ SIPCO
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.querySelector(".nav-toggle");
+      const links = document.querySelector(".nav-links");
+
+      if (toggle && links) {
+        toggle.addEventListener("click", () => {
+          links.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", links.classList.contains("open"));
+        });
+        links.querySelectorAll("a").forEach((a) => {
+          a.addEventListener("click", () => {
+            links.classList.remove("open");
+            toggle.setAttribute("aria-expanded", "false");
+          });
+        });
+      }
+
+      const navLinks = document.querySelectorAll(".nav-links a[href^='#']");
+      const sections = Array.from(navLinks)
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      if (sections.length) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.id;
+                navLinks.forEach((link) => {
+                  link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+                });
+              }
+            });
+          },
+          { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+        );
+        sections.forEach((section) => observer.observe(section));
+      }
+
+      // ---- Animation au scroll : tuiles bento staggerées ----
+      const bentoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const items = entry.target.querySelectorAll(".bento-item");
+              items.forEach((item, i) => {
+                item.style.transitionDelay = `${Math.min(i * 60, 420)}ms`;
+                item.classList.add("in-view");
+              });
+              bentoObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -8% 0px" }
+      );
+      document.querySelectorAll(".bento").forEach((b) => bentoObserver.observe(b));
+
+      // ---- Animation au scroll : entêtes de section ----
+      const headObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              headObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+      document.querySelectorAll(".section-head").forEach((s) => headObserver.observe(s));
+
+      // ---- Si JS désactivé : on force l'affichage (fallback déjà géré par le sélecteur ci-dessous) ----
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // ---- Theme toggle ----
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle) {
+        const html = document.documentElement;
+
+        const SVG_MOON = `<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+        const SVG_SUN  = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+
+        function syncIcon() {
+          const dark = html.getAttribute("data-theme") === "dark";
+          themeToggle.innerHTML = dark ? SVG_SUN : SVG_MOON;
+          themeToggle.setAttribute("aria-label", dark ? "Passer en mode clair" : "Passer en mode sombre");
+        }
+
+        syncIcon(); // état initial
+
+        themeToggle.addEventListener("click", () => {
+          const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          html.classList.add("theme-transitioning");
+          html.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+          syncIcon();
+          themeToggle.classList.add("rotating");
+          setTimeout(() => {
+            html.classList.remove("theme-transitioning");
+            themeToggle.classList.remove("rotating");
+          }, 420);
+        });
+      }
+    });
+
+    // Fallback : si quelque chose empêche l'observer, on affiche tout après 2s
+    setTimeout(() => {
+      document.querySelectorAll(".bento-item:not(.in-view), .section-head:not(.in-view)").forEach((el) => {
+        el.classList.add("in-view");
+      });
+    }, 2000);
+  </script>
+</body>
+</html>
