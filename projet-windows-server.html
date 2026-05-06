@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projet — Infrastructure Windows Server · Mathis Lemarié</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-dark: #1d1d1f;
+      --text: #1d1d1f;
+      --text-on-dark: #f5f5f7;
+      --text-muted: #6e6e73;
+      --border: #e5e5e7;
+      --accent: #0066ff;
+      --radius: 22px;
+      --radius-sm: 14px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+      --max-width: 960px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15.5px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.005em;
+    }
+
+    /* ---- Fond blobs ---- */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      overflow: hidden; pointer-events: none;
+    }
+    .bg-canvas .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: 0.5;
+    }
+    .blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, #a78bfa 0%, transparent 65%); top: -160px; left: -100px; animation: drift-1 30s ease-in-out infinite; }
+    .blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, #7eb8fb 0%, transparent 65%); bottom: 10%; right: -100px; animation: drift-2 36s ease-in-out infinite; }
+    @keyframes drift-1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(100px,80px) scale(1.1)} }
+    @keyframes drift-2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-80px,-60px) scale(0.95)} }
+
+    /* ---- Header ---- */
+    .site-header {
+      background: rgba(245,245,247,0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: sticky; top: 0; z-index: 100;
+      position: relative; z-index: 1;
+    }
+    .nav {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.5rem; max-width: var(--max-width); margin: 0 auto;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.88rem; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; padding: 0.4rem 0.85rem;
+      border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); transition: color 0.2s, box-shadow 0.2s;
+    }
+    .back-link:hover { color: var(--text); box-shadow: var(--shadow-sm); }
+    .back-link::before { content: "←"; font-size: 1em; }
+
+    .nav-brand { font-weight: 700; font-size: 0.95rem; color: var(--text); text-decoration: none; margin-left: auto; letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--accent); }
+
+    /* ---- Layout ---- */
+    main { position: relative; z-index: 1; padding: 3rem 1.5rem 5rem; max-width: var(--max-width); margin: 0 auto; }
+
+    /* ---- Hero du projet ---- */
+    .project-hero {
+      background: linear-gradient(135deg, #1d1d1f 0%, #0a0a0c 100%);
+      border-radius: var(--radius);
+      padding: 2.5rem 2.5rem 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-hero::before {
+      content: "";
+      position: absolute; border-radius: 50%;
+      filter: blur(70px); z-index: 0; pointer-events: none;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+      top: -140px; right: -80px; opacity: 0.55;
+      animation: float-blob 18s ease-in-out infinite;
+    }
+    @keyframes float-blob { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-25px) scale(1.07)} 66%{transform:translate(-20px,20px) scale(0.94)} }
+    .project-hero > * { position: relative; z-index: 1; }
+
+    .project-hero .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.8rem; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.75rem; font-weight: 500; color: rgba(245,245,247,0.7);
+      margin-bottom: 1rem;
+    }
+    .project-hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800;
+      color: #f5f5f7; letter-spacing: -0.04em; line-height: 1.05;
+      margin-bottom: 0.85rem;
+    }
+    .project-hero h1 span {
+      background: linear-gradient(90deg, #a78bfa 0%, #60a5fa 50%, #a78bfa 100%);
+      background-size: 200% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-shift 6s linear infinite;
+    }
+    @keyframes gradient-shift { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+    .project-hero p { color: rgba(245,245,247,0.75); font-size: 1rem; max-width: 55ch; }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem;
+    }
+    .meta-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.85rem; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.78rem; font-weight: 500; color: rgba(245,245,247,0.8);
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .section.sky    { background: linear-gradient(135deg, #dcefff 0%, #b9d8f6 100%); }
+    .section.mint   { background: linear-gradient(135deg, #dff3e7 0%, #b8e6c8 100%); }
+    .section.peach  { background: linear-gradient(135deg, #ffe6d8 0%, #ffcaa6 100%); }
+    .section.lavender { background: linear-gradient(135deg, #ede9fe 0%, #c4b5fd 100%); }
+    .section.dark   { background: linear-gradient(135deg, #1d1d1f 0%, #0a0a0c 100%); color: #f5f5f7; }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .section-label::before {
+      content: ""; display: inline-block; width: 18px; height: 1.5px;
+      background: var(--accent); border-radius: 1px;
+    }
+    .section.dark .section-label { color: #a78bfa; }
+    .section.dark .section-label::before { background: #a78bfa; }
+    .section.lavender .section-label { color: #7c3aed; }
+    .section.lavender .section-label::before { background: #7c3aed; }
+
+    .section h2 {
+      font-size: 1.35rem; font-weight: 700; letter-spacing: -0.025em;
+      margin-bottom: 1rem; color: var(--text);
+    }
+    .section.dark h2 { color: #f5f5f7; }
+
+    .section p { margin-bottom: 0.85rem; color: var(--text); }
+    .section p:last-child { margin-bottom: 0; }
+    .section.dark p { color: rgba(245,245,247,0.8); }
+
+    ul.styled { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+    ul.styled li {
+      position: relative; padding-left: 1.4rem; margin-bottom: 0.5rem; color: var(--text);
+    }
+    ul.styled li::before {
+      content: ""; position: absolute; left: 0.25rem; top: 0.62em;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 3px rgba(0,102,255,0.12);
+    }
+    .section.dark ul.styled li { color: rgba(245,245,247,0.85); }
+    .section.dark ul.styled li::before { background: #a78bfa; box-shadow: 0 0 0 3px rgba(167,139,250,0.2); }
+    .section.mint ul.styled li::before { background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
+    .section.sky ul.styled li::before  { background: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+    .section.lavender ul.styled li::before { background: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+
+    /* ---- Images ---- */
+    .screenshots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .screenshot-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .screenshot-card img {
+      width: 100%; height: auto; display: block;
+      cursor: zoom-in; transition: transform 0.3s ease;
+    }
+    .screenshot-card img:hover { transform: scale(1.015); }
+    .screenshot-caption {
+      padding: 0.85rem 1.1rem;
+      font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .screenshot-caption::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+
+    /* ---- Skills tags ---- */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .tag {
+      padding: 0.38rem 0.85rem; border-radius: 999px;
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.8rem; font-weight: 500; color: var(--text);
+    }
+    .section.dark .tag { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: #f5f5f7; }
+
+    /* ---- Lightbox ---- */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+      cursor: zoom-out; backdrop-filter: blur(6px);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 680px) {
+      main { padding: 2rem 1rem 4rem; }
+      .screenshots { grid-template-columns: 1fr; }
+      .project-hero { padding: 1.75rem 1.5rem 1.5rem; }
+      .section { padding: 1.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="back-link" href="index.html">Retour au portfolio</a>
+      <a class="nav-brand" href="index.html">Mathis Lemarié<span>.</span></a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <div class="project-hero">
+      <span class="badge">Projet 02 · Lab personnel · 2025</span>
+      <h1>Infrastructure<br /><span>Windows Server</span></h1>
+      <p>
+        Mise en place d'un environnement Windows Server complet en virtualisation :
+        Active Directory, DHCP, DNS et Stratégies de groupe (GPO).
+      </p>
+      <div class="meta-row">
+        <span class="meta-tag">Windows Server 2022</span>
+        <span class="meta-tag">Active Directory</span>
+        <span class="meta-tag">DHCP</span>
+        <span class="meta-tag">DNS</span>
+        <span class="meta-tag">GPO</span>
+        <span class="meta-tag">VirtualBox</span>
+      </div>
+    </div>
+
+    <!-- Contexte -->
+    <div class="section">
+      <p class="section-label">Contexte</p>
+      <h2>Pourquoi mettre en place un Windows Server ?</h2>
+      <p>
+        Dans un réseau d'entreprise, un serveur Windows joue un rôle central : il gère les comptes utilisateurs, distribue les adresses IP, résout les noms de domaine et applique des politiques de sécurité à l'ensemble des machines. Pour comprendre ces mécanismes en profondeur, j'ai déployé un <strong>lab complet en virtualisation</strong> avec VirtualBox.
+      </p>
+      <p>
+        L'environnement se compose d'un serveur Windows Server 2022 (contrôleur de domaine) et de plusieurs postes clients Windows 10/11 reliés au domaine. Cela permet de tester et comprendre la gestion centralisée d'un parc informatique, comme en entreprise.
+      </p>
+    </div>
+
+    <!-- Active Directory -->
+    <div class="section sky">
+      <p class="section-label">Active Directory DS</p>
+      <h2>Promotion du serveur en contrôleur de domaine</h2>
+      <p>
+        La première étape consiste à installer le rôle <strong>AD DS (Active Directory Domain Services)</strong> via le Gestionnaire de serveur, puis à promouvoir le serveur en contrôleur de domaine. On crée un nouveau domaine (ex. : <code>lab.local</code>) avec un mot de passe de restauration des services d'annuaire (DSRM).
+      </p>
+      <ul class="styled">
+        <li><strong>Forêt et domaine</strong> — création d'une nouvelle forêt Active Directory avec un domaine racine.</li>
+        <li><strong>Niveau fonctionnel</strong> — paramétrage du niveau fonctionnel du domaine et de la forêt (Windows Server 2016 minimum recommandé).</li>
+        <li><strong>DNS intégré</strong> — le rôle DNS est automatiquement installé lors de la promotion pour résoudre les noms du domaine AD.</li>
+        <li><strong>Unités d'organisation (OU)</strong> — structure hiérarchique créée pour organiser utilisateurs, groupes et ordinateurs.</li>
+      </ul>
+    </div>
+
+    <!-- Screenshots AD -->
+    <div class="screenshots">
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_AD_deployment.png" alt="Configuration du déploiement AD DS" />
+        <div class="screenshot-caption">Assistant de promotion — configuration du déploiement</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_AD_domain.png" alt="Options du domaine Active Directory" />
+        <div class="screenshot-caption">Options du contrôleur de domaine — niveau fonctionnel</div>
+      </div>
+    </div>
+
+    <!-- DHCP -->
+    <div class="section mint">
+      <p class="section-label">DHCP</p>
+      <h2>Distribution automatique des adresses IP</h2>
+      <p>
+        Une fois le domaine créé, on installe le rôle <strong>DHCP Server</strong> pour distribuer automatiquement des adresses IP aux machines clientes. Le serveur DHCP doit être autorisé dans Active Directory avant de pouvoir distribuer des baux.
+      </p>
+      <ul class="styled">
+        <li><strong>Étendue (scope)</strong> — plage d'adresses IP disponibles pour les clients (ex. : 192.168.1.100 – 192.168.1.200).</li>
+        <li><strong>Options d'étendue</strong> — passerelle par défaut, serveur DNS et nom de domaine transmis automatiquement aux clients.</li>
+        <li><strong>Exclusions</strong> — adresses réservées aux équipements à IP fixe (serveurs, imprimantes, routeurs).</li>
+        <li><strong>Réservations</strong> — association d'une adresse IP fixe à une adresse MAC pour certains postes.</li>
+        <li><strong>Autorisation AD</strong> — le serveur DHCP est autorisé dans l'annuaire pour éviter les serveurs DHCP pirates.</li>
+      </ul>
+    </div>
+
+    <!-- Screenshots DHCP -->
+    <div class="screenshots">
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_DHCP_console.jpg" alt="Console de gestion DHCP" />
+        <div class="screenshot-caption">Console DHCP MMC — vue d'ensemble du serveur</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_DHCP_scope.jpg" alt="Création d'une étendue DHCP" />
+        <div class="screenshot-caption">Assistant Nouvelle étendue — plage d'adresses IP</div>
+      </div>
+    </div>
+
+    <!-- DNS -->
+    <div class="section">
+      <p class="section-label">DNS</p>
+      <h2>Résolution des noms de domaine</h2>
+      <p>
+        Le <strong>serveur DNS</strong> est le composant qui traduit les noms (ex. : <code>srv01.lab.local</code>) en adresses IP. Dans un environnement Active Directory, DNS est indispensable : les clients utilisent le DNS pour localiser le contrôleur de domaine, s'authentifier et accéder aux ressources partagées.
+      </p>
+      <ul class="styled">
+        <li><strong>Zone de recherche directe</strong> — résout un nom en adresse IP (ex. : <code>pc01.lab.local</code> → <code>192.168.1.50</code>).</li>
+        <li><strong>Zone de recherche inversée</strong> — résout une adresse IP en nom (reverse DNS).</li>
+        <li><strong>Enregistrements A</strong> — associent un nom d'hôte à son adresse IPv4.</li>
+        <li><strong>Enregistrements PTR</strong> — enregistrements inverses utilisés pour la résolution IP → nom.</li>
+        <li><strong>Transferts de zone</strong> — réplication DNS entre plusieurs contrôleurs de domaine.</li>
+      </ul>
+    </div>
+
+    <!-- Screenshots DNS -->
+    <div class="screenshots">
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_DNS_manager.png" alt="Gestionnaire DNS Windows Server" />
+        <div class="screenshot-caption">Gestionnaire DNS — arborescence des zones</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_DNS_zone.png" alt="Création d'une zone de recherche directe" />
+        <div class="screenshot-caption">Création d'une zone de recherche directe (Forward Lookup Zone)</div>
+      </div>
+    </div>
+
+    <!-- GPO -->
+    <div class="section dark">
+      <p class="section-label">Stratégies de groupe — GPO</p>
+      <h2>Application de politiques sur le domaine</h2>
+      <p>
+        Les <strong>GPO (Group Policy Objects)</strong> permettent d'appliquer des paramètres de configuration et de sécurité de manière centralisée à l'ensemble des ordinateurs et utilisateurs du domaine. On les gère via la <strong>console GPMC</strong> (Group Policy Management Console).
+      </p>
+      <ul class="styled">
+        <li><strong>Default Domain Policy</strong> — politique de base appliquée à tous les objets du domaine (complexité des mots de passe, durée de vie, verrouillage de compte).</li>
+        <li><strong>Fond d'écran imposé</strong> — déploiement d'un fond d'écran uniforme sur tous les postes via une GPO utilisateur.</li>
+        <li><strong>Désactivation du panneau de configuration</strong> — restriction d'accès aux paramètres système pour les utilisateurs standard.</li>
+        <li><strong>Scripts de démarrage</strong> — exécution automatique de scripts PowerShell au démarrage des machines.</li>
+        <li><strong>Liaison OU</strong> — les GPO sont liées à des Unités d'Organisation pour cibler des groupes spécifiques d'utilisateurs ou d'ordinateurs.</li>
+      </ul>
+    </div>
+
+    <!-- Screenshots GPO -->
+    <div class="screenshots">
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_GPO_console.webp" alt="Console de gestion des stratégies de groupe GPMC" />
+        <div class="screenshot-caption">GPMC — console de gestion des stratégies de groupe</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="assets/img/WinServer_GPO_link.webp" alt="Liaison d'une GPO à une OU" />
+        <div class="screenshot-caption">Liaison d'une GPO à une Unité d'Organisation</div>
+      </div>
+    </div>
+
+    <!-- Compétences -->
+    <div class="section">
+      <p class="section-label">Compétences mobilisées</p>
+      <h2>Ce que ce projet m'a apporté</h2>
+      <p>
+        Ce lab m'a permis de comprendre l'architecture d'un réseau d'entreprise basé sur Windows Server. J'ai découvert comment les différentes briques (AD, DHCP, DNS, GPO) s'articulent pour former un environnement cohérent et sécurisé.
+      </p>
+      <div class="tag-row">
+        <span class="tag">Windows Server 2022</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">DHCP Server</span>
+        <span class="tag">DNS Server</span>
+        <span class="tag">Group Policy (GPO)</span>
+        <span class="tag">VirtualBox</span>
+        <span class="tag">Administration système</span>
+        <span class="tag">Gestion de domaine</span>
+        <span class="tag">Virtualisation</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    document.querySelectorAll(".screenshot-card img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("open");
+      });
+    });
+
+    lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") lightbox.classList.remove("open");
+    });
+  </script>
+</body>
+</html>
